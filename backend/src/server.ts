@@ -1,6 +1,11 @@
 import app from './app'
 const { PORT } = process.env
 
-app.listen(PORT, () => {
-  console.log(`Listening port:${PORT}`)
-})
+app.listen(
+  {
+    port: PORT ? Number(PORT) : 8888,
+  },
+  () => {
+    console.log(`Listening port:${PORT}`)
+  },
+)
