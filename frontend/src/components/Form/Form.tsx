@@ -6,6 +6,8 @@ import Swal from 'sweetalert2'
 import { PayPalButtons } from '@paypal/react-paypal-js'
 import { OnApproveData } from '@paypal/paypal-js'
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+
 const Form = () => {
   const { products, form, setForm } = useContext(ProductsContext)
   const [info, setInfo] = useState<InfoType>({
@@ -37,7 +39,7 @@ const Form = () => {
   }
 
   const createOrder = () => {
-    return fetch('http://localhost:8888/paypal/create-order', {
+    return fetch(`${BACKEND_URL}/paypal/create-order`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -59,7 +61,7 @@ const Form = () => {
     setForm(!form)
   }
   const onApprove = (data: OnApproveData) => {
-    return fetch('http://localhost:8888/paypal/confirm-order', {
+    return fetch(`${BACKEND_URL}/paypal/confirm-order`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -1,10 +1,18 @@
-version: '1.0'
+version: "3"
 services:
+  paypal-project-frontend:
+    build: ./frontend
+    ports:
+      - 4173:4173
+    environment:
+      - VITE_CLIENT_ID=AUqjGvP_0hqXOdPYM8CD6KaQ9UlrdJ6ak3Bkf_bhP5dl-JwJTNNleve1HoYOc7O9WmtZlwM0jc8pL5pF
+      - VITE_BACKEND_URL=https://paypal-backend-3h60.onrender.com
+    depends_on:
+      - paypal-project-backend
+    volumes:
+      - ./:/app
   paypal-project-backend:
-    container_name: paypal-project-backend
-    image: node:20.9.0
-    restart: always
-    user: node
+    build: ./backend
     ports:
       - 8888:8888
     environment:
@@ -13,7 +21,7 @@ services:
       - BASE_URL_PAYPAL=https://api-m.sandbox.paypal.com
       - NODE_ENV=developing
       - PORT=8888
-      - HOST=""
+      - HOST="0.0.0.0"
     volumes:
       - ./:/app
     working_dir: /app
